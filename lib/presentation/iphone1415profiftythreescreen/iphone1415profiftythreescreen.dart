@@ -359,6 +359,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:schoolruns/presentation/iphone1415profiftythreescreen/scan.dart';
 import '../../core/app_export.dart';
 import '../../data/models/selectionPopupModel/selection_popup_model.dart';
 import '../../theme/custom_button_style.dart';
@@ -648,6 +649,27 @@ class Iphone1415ProFiftythreeScreen
               },
               width: 134.h,
               text: "lbl_pickup".tr,
+              leftIcon: Container(
+                margin: EdgeInsets.only(right: 12.h),
+                child: CustomImageView(
+                  imagePath: ImageConstant.imgUserWhiteA700,
+                  height: 26.h,
+                  width: 24.h,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+
+
+            SizedBox(width: 20.h),
+
+            // Pickup Button
+            CustomOutlinedButton(
+              onPressed: () {
+                Get.to(RFIDReaderScreen());
+              },
+              width: 134.h,
+              text: "scan",
               leftIcon: Container(
                 margin: EdgeInsets.only(right: 12.h),
                 child: CustomImageView(
