@@ -359,7 +359,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:schoolruns/presentation/iphone1415proeightyonescreen/scab_mobile_checkout.dart';
+import 'package:schoolruns/presentation/iphone1415proeightyonescreen/scan_mobile_checkin.dart';
 import 'package:schoolruns/presentation/iphone1415profiftythreescreen/scan.dart';
+import 'package:schoolruns/presentation/iphone1415proseventyeightscreen/scan_mobile_dropoff.dart';
+import 'package:schoolruns/presentation/iphone1415proseventyeightscreen/scan_mobile_pickup.dart';
 import '../../core/app_export.dart';
 import '../../data/models/selectionPopupModel/selection_popup_model.dart';
 import '../../theme/custom_button_style.dart';
@@ -369,6 +373,10 @@ import '../../widgets/app_bar/appbar_trailing_iconbutton.dart';
 import '../../widgets/app_bar/custom_appbar.dart';
 import '../../widgets/custom_outlined_button.dart';
 import 'controller/iphone1415profiftythreecontroller.dart';
+
+Iphone1415ProFiftythreeController controller = Get.put(
+  Iphone1415ProFiftythreeController(),
+);
 
 class Iphone1415ProFiftythreeScreen
     extends GetWidget<Iphone1415ProFiftythreeController> {
@@ -617,68 +625,138 @@ class Iphone1415ProFiftythreeScreen
       right: 0,
       bottom: 40.h,
       child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
           children: [
-            // Drop Button
-            CustomOutlinedButton(
-              onPressed: () {
-                Get.toNamed(AppRoutes.iphone1415ProSeventyeightScreen);
-              },
-              width: 134.h,
-              text: "lbl_drop".tr,
-              leftIcon: Container(
-                margin: EdgeInsets.only(right: 12.h),
-                child: CustomImageView(
-                  imagePath: ImageConstant.imgVector,
-                  height: 26.h,
-                  width: 26.h,
-                  fit: BoxFit.contain,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Drop Button
+                CustomOutlinedButton(
+                  onPressed: () {
+                    Get.to(RFIDReaderDropOffScreen());
+                  },
+                  width: 134.h,
+                  text: "Drop Off",
+                  leftIcon: Container(
+                    margin: EdgeInsets.only(right: 12.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgVector,
+                      height: 26.h,
+                      width: 26.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  buttonStyle: CustomButtonStyles.outlinePrimary,
+                  buttonTextStyle:
+                      CustomTextStyles.titleSmallSecondaryContainer,
                 ),
-              ),
-              buttonStyle: CustomButtonStyles.outlinePrimary,
-              buttonTextStyle: CustomTextStyles.titleSmallSecondaryContainer,
+
+                SizedBox(width: 20.h),
+
+                // Pickup Button
+                CustomOutlinedButton(
+                  onPressed: () {
+                    Get.to(RFIDReaderPickUpScreen());
+                  },
+                  width: 134.h,
+                  text: "lbl_pickup".tr,
+                  leftIcon: Container(
+                    margin: EdgeInsets.only(right: 12.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgUserWhiteA700,
+                      height: 26.h,
+                      width: 24.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+
+                SizedBox(width: 20.h),
+
+                // Pickup Button
+                // CustomOutlinedButton(
+                //   onPressed: () {
+                //     Get.to(RFIDReaderScreen());
+                //   },
+                //   width: 134.h,
+                //   text: "scan",
+                //   leftIcon: Container(
+                //     margin: EdgeInsets.only(right: 12.h),
+                //     child: CustomImageView(
+                //       imagePath: ImageConstant.imgUserWhiteA700,
+                //       height: 26.h,
+                //       width: 24.h,
+                //       fit: BoxFit.contain,
+                //     ),
+                //   ),
+                // ),
+              ],
             ),
-
-            SizedBox(width: 20.h),
-
-            // Pickup Button
-            CustomOutlinedButton(
-              onPressed: () {
-                Get.toNamed(AppRoutes.iphone1415ProEightyoneScreen);
-              },
-              width: 134.h,
-              text: "lbl_pickup".tr,
-              leftIcon: Container(
-                margin: EdgeInsets.only(right: 12.h),
-                child: CustomImageView(
-                  imagePath: ImageConstant.imgUserWhiteA700,
-                  height: 26.h,
-                  width: 24.h,
-                  fit: BoxFit.contain,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Drop Button
+                CustomOutlinedButton(
+                  onPressed: () {
+                    Get.to(RFIDReaderCheckInScreen());
+                  },
+                  width: 134.h,
+                  text: "Check In",
+                  leftIcon: Container(
+                    margin: EdgeInsets.only(right: 12.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgVector,
+                      height: 26.h,
+                      width: 26.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  buttonStyle: CustomButtonStyles.outlinePrimary,
+                  buttonTextStyle:
+                      CustomTextStyles.titleSmallSecondaryContainer,
                 ),
-              ),
-            ),
 
+                SizedBox(width: 20.h),
 
-            SizedBox(width: 20.h),
-
-            // Pickup Button
-            CustomOutlinedButton(
-              onPressed: () {
-                Get.to(RFIDReaderScreen());
-              },
-              width: 134.h,
-              text: "scan",
-              leftIcon: Container(
-                margin: EdgeInsets.only(right: 12.h),
-                child: CustomImageView(
-                  imagePath: ImageConstant.imgUserWhiteA700,
-                  height: 26.h,
-                  width: 24.h,
-                  fit: BoxFit.contain,
+                // Pickup Button
+                CustomOutlinedButton(
+                  onPressed: () {
+                    Get.to(RFIDReaderCheckOutScreen());
+                  },
+                  width: 134.h,
+                  text: "Check Out",
+                  leftIcon: Container(
+                    margin: EdgeInsets.only(right: 12.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgUserWhiteA700,
+                      height: 26.h,
+                      width: 24.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
-              ),
+
+                SizedBox(width: 20.h),
+
+                // Pickup Button
+                // CustomOutlinedButton(
+                //   onPressed: () {
+                //     Get.to(RFIDReaderScreen());
+                //   },
+                //   width: 134.h,
+                //   text: "scan",
+                //   leftIcon: Container(
+                //     margin: EdgeInsets.only(right: 12.h),
+                //     child: CustomImageView(
+                //       imagePath: ImageConstant.imgUserWhiteA700,
+                //       height: 26.h,
+                //       width: 24.h,
+                //       fit: BoxFit.contain,
+                //     ),
+                //   ),
+                // ),
+              ],
             ),
           ],
         ),
