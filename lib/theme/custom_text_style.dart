@@ -67,7 +67,7 @@ class CustomTextStyles {
       theme.textTheme.bodySmall!.copyWith(
         color: appTheme.indigoA700,
         fontSize: 12.fSize,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
       );
   // Montserrat text style
   static TextStyle get montserratGray60001 =>
@@ -88,7 +88,7 @@ class CustomTextStyles {
       theme.textTheme.titleSmall!.poppins.copyWith(
         color: appTheme.gray800,
         fontSize: 15.fSize,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       );
   static TextStyle get titleSmallPrimaryContainer => theme.textTheme.titleSmall!
       .copyWith(color: theme.colorScheme.primaryContainer);

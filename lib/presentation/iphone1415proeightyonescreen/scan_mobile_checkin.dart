@@ -6,11 +6,14 @@ import 'dart:typed_data';
 
 import '../../core/app_export.dart';
 
-Iphone1415ProEightyoneController controller = Get.put(Iphone1415ProEightyoneController());
+Iphone1415ProEightyoneController controller = Get.put(
+  Iphone1415ProEightyoneController(),
+);
 
 class RFIDReaderCheckInScreen extends StatefulWidget {
   @override
-  _RFIDReaderCheckInScreenState createState() => _RFIDReaderCheckInScreenState();
+  _RFIDReaderCheckInScreenState createState() =>
+      _RFIDReaderCheckInScreenState();
 }
 
 class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
@@ -28,7 +31,7 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
 
   Future<void> _connectToDevice() async {
     List<UsbDevice> devices = await UsbSerial.listDevices();
-    
+
     if (devices.isEmpty) {
       setState(() {
         _status = "No USB devices found";
@@ -39,7 +42,7 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
     // Connect to first available device
     UsbDevice device = devices[0];
     _port = await device.create();
-    
+
     bool openResult = await _port!.open();
     if (!openResult) {
       setState(() {
@@ -50,7 +53,7 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
 
     await _port!.setDTR(true);
     await _port!.setRTS(true);
-    
+
     // Common RFID reader settings
     await _port!.setPortParameters(
       9600, // Baud rate (adjust based on your reader)
@@ -64,23 +67,27 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
     });
 
     // Listen for card data
-    _subscription = _port!.inputStream?.map((Uint8List data) {
-      return String.fromCharCodes(data);
-    }).listen((String data) {
-      _handleCardData(data);
-    });
+    _subscription = _port!.inputStream
+        ?.map((Uint8List data) {
+          return String.fromCharCodes(data);
+        })
+        .listen((String data) {
+          _handleCardData(data);
+        });
   }
 
   void _handleCardData(String data) {
     setState(() {
       _cardId += data;
-      
+
       // Check if we have a complete card ID (usually ends with newline or specific length)
       if (_cardId.contains('\n') || _cardId.length >= 10) {
         String cleanId = _cardId.trim();
         if (cleanId.isNotEmpty && !_scannedCards.contains(cleanId)) {
           _scannedCards.insert(0, cleanId);
           _showCardScannedDialog(cleanId);
+          Get.snackbar('Success', 'Card ID: $cleanId \n calling method...');
+          controller.checkIn(cleanId);
         }
         _cardId = "";
       }
@@ -90,23 +97,24 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
   void _showCardScannedDialog(String cardId) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Card Scanned'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.credit_card, size: 64, color: Colors.green),
-            SizedBox(height: 16),
-            Text('Card ID: $cardId', style: TextStyle(fontSize: 18)),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
+      builder:
+          (context) => AlertDialog(
+            title: Text('Card Scanned'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.credit_card, size: 64, color: Colors.green),
+                SizedBox(height: 16),
+                Text('Card ID: $cardId', style: TextStyle(fontSize: 18)),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -121,8 +129,17 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Check In - RFID Reader'),
-        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'Check In - RFID Reader',
+          style: CustomTextStyles.titleSmallPoppinsGray800,
+        ),
+        //backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -136,13 +153,12 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
                 child: Column(
                   children: [
                     Icon(
-                      _status.contains("Connected") 
-                        ? Icons.usb 
-                        : Icons.usb_off,
+                      _status.contains("Connected") ? Icons.usb : Icons.usb_off,
                       size: 48,
-                      color: _status.contains("Connected") 
-                        ? Colors.green 
-                        : Colors.red,
+                      color:
+                          _status.contains("Connected")
+                              ? Colors.green
+                              : Colors.red,
                     ),
                     SizedBox(height: 8),
                     Text(
@@ -169,10 +185,7 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
                   children: [
                     Icon(Icons.nfc, size: 48, color: Colors.blue),
                     SizedBox(height: 8),
-                    Text(
-                      'Ready to scan cards',
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    Text('Ready to scan cards', style: TextStyle(fontSize: 16)),
                     SizedBox(height: 4),
                     Text(
                       'Tap or swipe an ID card',
@@ -198,40 +211,41 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
             ),
             Divider(),
             Expanded(
-              child: _scannedCards.isEmpty
-                ? Center(
-                    child: Text(
-                      'No cards scanned yet',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: _scannedCards.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        margin: EdgeInsets.symmetric(vertical: 4),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text('${index + 1}'),
-                            backgroundColor: Colors.blue,
-                          ),
-                          title: Text(
-                            _scannedCards[index],
-                            style: TextStyle(fontFamily: 'monospace'),
-                          ),
-                          subtitle: Text('Scanned'),
-                          trailing: IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () {
-                              setState(() {
-                                _scannedCards.removeAt(index);
-                              });
-                            },
-                          ),
+              child:
+                  _scannedCards.isEmpty
+                      ? Center(
+                        child: Text(
+                          'No cards scanned yet',
+                          style: TextStyle(color: Colors.grey),
                         ),
-                      );
-                    },
-                  ),
+                      )
+                      : ListView.builder(
+                        itemCount: _scannedCards.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            margin: EdgeInsets.symmetric(vertical: 4),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                child: Text('${index + 1}'),
+                                backgroundColor: Colors.blue,
+                              ),
+                              title: Text(
+                                _scannedCards[index],
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                              subtitle: Text('Scanned'),
+                              trailing: IconButton(
+                                icon: Icon(Icons.delete, color: Colors.red),
+                                onPressed: () {
+                                  setState(() {
+                                    _scannedCards.removeAt(index);
+                                  });
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
             ),
           ],
         ),

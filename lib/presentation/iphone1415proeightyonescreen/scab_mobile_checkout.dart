@@ -81,6 +81,7 @@ class _RFIDReaderCheckOutScreenState extends State<RFIDReaderCheckOutScreen> {
         if (cleanId.isNotEmpty && !_scannedCards.contains(cleanId)) {
           _scannedCards.insert(0, cleanId);
           _showCardScannedDialog(cleanId);
+          controller.checkOut(cleanId);
         }
         _cardId = "";
       }
@@ -121,8 +122,14 @@ class _RFIDReaderCheckOutScreenState extends State<RFIDReaderCheckOutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Check Out - RFID Reader'),
-        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text('Check Out - RFID Reader', style: CustomTextStyles.titleSmallPoppinsGray800),
+       // backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

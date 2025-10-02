@@ -296,6 +296,23 @@ class ApiClient extends GetConnect {
     return response;
   }
 
+    Future<http.Response> regCard(Map<String, dynamic> customerData) async {
+    final url = Uri.parse('$baseUrl/attendance/assign-uid');
+    var token = await dataBase.getToken();
+    _logRequest('POST', url, body: customerData);
+    final response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(customerData),
+    );
+    _logResponse(response);
+    return response;
+  }
+
 
   Future<http.Response> getSchoolLogo() async {
     var schoolId = await dataBase.getBrmCode();

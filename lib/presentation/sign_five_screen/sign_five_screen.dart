@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schoolruns/presentation/sign_five_screen/register_card.dart';
 import '../../core/app_export.dart';
 import '../../theme/custom_button_style.dart';
 import '../../widgets/app_bar/appbar_leading_image.dart';
@@ -53,9 +54,13 @@ class SignFiveScreen extends GetWidget<SignFiveController> {
                 ),
               ),
               SizedBox(height: 12.h),
-              Text(
-                "msg_change_school_id".tr,
-                style: CustomTextStyles.bodySmallIndigoA700Light,
+              GestureDetector(
+                onTap: () => Get.to(() => RegisterCard()),
+                child: Text(
+                  //  "msg_change_school_id".tr,
+                  "Register RFID Card",
+                  style: CustomTextStyles.bodySmallIndigoA700Light,
+                ),
               ),
               SizedBox(height: 36.h),
               _buildNotificationSettings(),

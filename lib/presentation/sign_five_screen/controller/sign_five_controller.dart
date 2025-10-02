@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:developer' as myLog;
 import 'package:flutter/material.dart';
 import 'package:overlay_kit/overlay_kit.dart';
 import 'package:schoolruns/core/utils/storage.dart';
@@ -19,6 +19,7 @@ class SignFiveController extends GetxController {
   Rx<bool> isSelectedSwitch1 = false.obs;
   RxString logo = ''.obs;
   RxString name = 'Loading....'.obs;
+  RxString cardNo = ''.obs;
 
   @override
   void onInit() {
@@ -94,6 +95,42 @@ class SignFiveController extends GetxController {
       Get.snackbar("Error", "Unable to retrieve logo \n $e");
     } finally {
       //  OverlayLoadingProgress.stop();
+    }
+  }
+
+  Future<void> registerCard(String cardId) async {
+    OverlayLoadingProgress.start(context: Get.context!);
+    var schoolCode = await dataBase.getBrmCode();
+    try {
+      final body = {
+        "schoolCode": schoolCode,
+        "cardUID": cardId,
+        "UserNo": "021/0103",
+      };
+
+      final response = await _apiService.regCard(body);
+      if (response.statusCode == 200) {
+        //  OverlayLoadingProgress.stop();
+        // Handle successful logo retrieval
+        print(response.body);
+        // var responseBody = jsonDecode(response.body);
+        // var schoolName = responseBody['data'];
+        // name.value = schoolName;
+        // print(name.value);
+      } else {
+        //   OverlayLoadingProgress.stop();
+        Get.snackbar("Error", "Unable to retrieve register card");
+        var responseBody = jsonDecode(response.body);
+        print(responseBody);
+        print(response.body);
+        print(response.statusCode);
+      }
+    } catch (e) {
+      //  OverlayLoadingProgress.stop();
+      myLog.log("Unable to retrieve register card \n $e");
+      Get.snackbar("Error", "Unable to retrieve register card \n $e");
+    } finally {
+      OverlayLoadingProgress.stop();
     }
   }
 }

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:schoolruns/presentation/iphone1415proseventyeightscreen/controller/iphone1415proseventyeightcontroller.dart';
+import 'package:schoolruns/theme/custom_text_style.dart';
 import 'package:usb_serial/usb_serial.dart';
 import 'dart:async';
 import 'dart:typed_data';
+
+import '../../core/app_export.dart';
+
+Iphone1415ProSeventyeightController controller = Get.put(
+  Iphone1415ProSeventyeightController(),
+);
 
 class RFIDReaderPickUpScreen extends StatefulWidget {
   @override
@@ -78,6 +86,8 @@ class _RFIDReaderPickUpScreenState extends State<RFIDReaderPickUpScreen> {
         if (cleanId.isNotEmpty && !_scannedCards.contains(cleanId)) {
           _scannedCards.insert(0, cleanId);
           _showCardScannedDialog(cleanId);
+          Get.snackbar('Success', 'Card ID: $cleanId \n calling method...');
+          controller.pickUp(cleanId);
         }
         _cardId = "";
       }
@@ -119,8 +129,16 @@ class _RFIDReaderPickUpScreenState extends State<RFIDReaderPickUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pick Up - RFID Reader'),
-        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'Pick Up - RFID Reader',
+          style: CustomTextStyles.titleSmallPoppinsGray800,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

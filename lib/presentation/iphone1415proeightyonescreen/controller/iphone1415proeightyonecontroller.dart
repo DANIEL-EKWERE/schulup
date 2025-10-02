@@ -86,12 +86,12 @@ StreamSubscription? _connectivitySubscription;
   // }
 
 
-  Future<void> checkIn() async {
+  Future<void> checkIn(String cardId) async {
   OverlayLoadingProgress.start(context: Get.context!);
   var schoolCode = await dataBase.getBrmCode();
   final body = {
     "schoolCode": schoolCode,
-    "cardUID": "123456789",
+    "cardUID": cardId,
     "eventType": 3,
     "eventDateTime": DateTime.now().toIso8601String(),
     "notes": "",
@@ -192,12 +192,12 @@ try{
   //   }
   // }
 
-  Future<void> checkOut() async {
+  Future<void> checkOut(String cardId) async {
   OverlayLoadingProgress.start(context: Get.context!);
   var schoolCode = await dataBase.getBrmCode();
   final body = {
     "schoolCode": schoolCode,
-    "cardUID": "123456789",
+    "cardUID": cardId,
     "eventType": 4,
     "eventDateTime": DateTime.now().toIso8601String(),
     "notes": "",

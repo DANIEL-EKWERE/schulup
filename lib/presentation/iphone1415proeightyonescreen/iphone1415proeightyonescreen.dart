@@ -447,7 +447,7 @@ class Iphone1415ProEightyoneScreen
                   CustomOutlinedButton(
                     onPressed: () {
                       print('Check In pressed');
-                      controller.checkIn();
+                      //controller.checkIn();
                     },
                     width: 134.h,
                     text: "Check In",
@@ -465,7 +465,7 @@ class Iphone1415ProEightyoneScreen
                   CustomOutlinedButton(
                     onPressed: () {
                       print('Pick Up pressed');
-                      controller.checkOut();
+                    //  controller.checkOut();
                     },
                     width: 134.h,
                     text: "lbl_pickup".tr,

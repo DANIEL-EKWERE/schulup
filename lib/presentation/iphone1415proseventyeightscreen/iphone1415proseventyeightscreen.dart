@@ -444,7 +444,7 @@ class Iphone1415ProSeventyeightScreen
                   CustomElevatedButton(
                     onPressed: () {
                       print('dropping off');
-                      controller.dropOff();
+                     // controller.dropOff();
                     },
                     width: 134.h,
                     text: "Drop off",
@@ -462,7 +462,7 @@ class Iphone1415ProSeventyeightScreen
                   CustomElevatedButton(
                     onPressed: () {
                       print('picking up');
-                      controller.pickUp();
+                    //  controller.pickUp();
                     },
                     width: 134.h,
                     text: "Pick Up",

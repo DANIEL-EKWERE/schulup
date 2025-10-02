@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:schoolruns/presentation/iphone1415proseventyeightscreen/controller/iphone1415proseventyeightcontroller.dart';
-import 'package:schoolruns/theme/custom_text_style.dart';
+import 'package:schoolruns/presentation/iphone1415proeightyonescreen/scan_mobile_checkin.dart';
+import 'package:schoolruns/presentation/sign_five_screen/controller/sign_five_controller.dart';
 import 'package:usb_serial/usb_serial.dart';
 import 'dart:async';
 import 'dart:typed_data';
 
 import '../../core/app_export.dart';
 
+SignFiveController controller = Get.find<SignFiveController>();
 
-Iphone1415ProSeventyeightController controller = Get.put(Iphone1415ProSeventyeightController());
-class RFIDReaderDropOffScreen extends StatefulWidget {
+class RegisterCard extends StatefulWidget {
+  const RegisterCard({super.key});
+
   @override
-  _RFIDReaderDropOffScreenState createState() =>
-      _RFIDReaderDropOffScreenState();
+  _RegisterCardState createState() => _RegisterCardState();
 }
 
-class _RFIDReaderDropOffScreenState extends State<RFIDReaderDropOffScreen> {
+class _RegisterCardState extends State<RegisterCard> {
   UsbPort? _port;
   String _status = "Disconnected";
   String _cardId = "";
@@ -85,8 +86,12 @@ class _RFIDReaderDropOffScreenState extends State<RFIDReaderDropOffScreen> {
         if (cleanId.isNotEmpty && !_scannedCards.contains(cleanId)) {
           _scannedCards.insert(0, cleanId);
           _showCardScannedDialog(cleanId);
-          Get.snackbar('Success', 'Card ID: $cleanId \n calling method...');
-          controller.dropOff(cleanId);
+          print('calling here');
+          Get.snackbar(
+            "Success",
+            "Card Registered Successfully \n calling the register function",
+          );
+          controller.registerCard(cleanId);
         }
         _cardId = "";
       }
@@ -129,22 +134,26 @@ class _RFIDReaderDropOffScreenState extends State<RFIDReaderDropOffScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.chevron_left, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          icon: Icon(Icons.chevron_left),
+          onPressed: () => Get.back(),
         ),
         title: Text(
-          'Drop Off  - RFID Reader',
+          'Register RFID Card',
           style: CustomTextStyles.titleSmallPoppinsGray800,
         ),
-        //  backgroundColor: Colors.blue,
+        // backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // ElevatedButton(
+            //   onPressed: () {
+            //     //controller.registerCard();
+            //   },
+            //   child: Text('Register Card'),
+            // ),
             Card(
               elevation: 4,
               child: Padding(
