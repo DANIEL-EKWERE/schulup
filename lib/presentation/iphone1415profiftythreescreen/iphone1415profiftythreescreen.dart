@@ -656,7 +656,7 @@ class Iphone1415ProFiftythreeScreen
                 // Pickup Button
                 CustomOutlinedButton(
                   onPressed: () {
-                    Get.to(RFIDReaderPickUpScreen());
+                    Get.to(RFIDReaderPickupScreen());
                   },
                   width: 134.h,
                   text: "lbl_pickup".tr,
