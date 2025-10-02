@@ -341,7 +341,7 @@ class _RFIDReaderCheckInScreenState extends State<RFIDReaderCheckInScreen> {
       _scannedCards.insert(0, CardScan(cardId: cardId, timestamp: now));
       _status = "Card Scanned!";
     });
-    controller.checkOut(cardId);
+    controller.checkIn(cardId);
     _showCardDialog(cardId);
 
     // Reset status after 2 seconds
