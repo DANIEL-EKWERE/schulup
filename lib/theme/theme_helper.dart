@@ -155,7 +155,9 @@ class ColorSchemes {
 /// Class containing custom colors for a lightCode theme.
 class LightCodeColors {
   // Blue
-  Color get blueA700 => Color(0XFF004BFD);
+  Color get blueA700 => Color(0XFFF6873F);
+
+  //Color get blueA7001 => Color(0XFFFF8C42);
   // BlueGray
   Color get blueGray100 => Color(0XFFD9D9D9);
   // Gray
@@ -174,7 +176,7 @@ class LightCodeColors {
   Color get gray700 => Color(0XFF606161);
   Color get gray800 => Color(0XFF3C3C3C);
   // Indigo
-  Color get indigoA700 => Color(0XFF2015FE);
+  Color get indigoA700 => Color(0XFFFF8C42);
   // White
   Color get whiteA700 => Color(0XFFFFFFFF);
 }

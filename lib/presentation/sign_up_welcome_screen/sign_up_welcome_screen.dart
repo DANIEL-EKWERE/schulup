@@ -32,7 +32,10 @@ class SignUpWelcomeScreen extends GetWidget<SignUpWelcomeController> {
                 "msg_lorem_ipsum_dolor".tr,
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyLarge!.copyWith(height: 1.63),
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  height: 1.63,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               SizedBox(height: 46.h),
               CustomElevatedButton(

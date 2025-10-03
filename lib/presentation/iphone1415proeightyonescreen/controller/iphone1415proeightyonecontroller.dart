@@ -111,13 +111,14 @@ class Iphone1415ProEightyoneController extends GetxController {
               colorText: Colors.white,
             );
           } else if (response.statusCode == 404) {
+            OverlayLoadingProgress.stop();
             var responseBody = jsonDecode(response.body);
 
             Get.snackbar(
               responseBody['message'],
               'Register this card before use',
               snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.yellowAccent,
+              backgroundColor: Colors.deepOrange,
               colorText: Colors.white,
             );
           }
@@ -225,13 +226,14 @@ class Iphone1415ProEightyoneController extends GetxController {
               colorText: Colors.white,
             );
           } else if (response.statusCode == 404) {
+            OverlayLoadingProgress.stop();
             var responseBody = jsonDecode(response.body);
 
             Get.snackbar(
               responseBody['message'],
               'Register this card before use',
               snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.yellowAccent,
+              backgroundColor: Colors.deepOrange,
               colorText: Colors.white,
             );
           }

@@ -141,13 +141,14 @@ StreamSubscription? _connectivitySubscription;
             );
             
           }else if (response.statusCode == 404) {
+            OverlayLoadingProgress.stop();
             var responseBody = jsonDecode(response.body);
 
             Get.snackbar(
               responseBody['message'],
               'Register this card before use',
               snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.yellowAccent,
+              backgroundColor: Colors.deepOrange,
               colorText: Colors.white,
             );
           }
@@ -211,13 +212,14 @@ StreamSubscription? _connectivitySubscription;
             );
             
           }else if (response.statusCode == 404) {
+            OverlayLoadingProgress.stop();
             var responseBody = jsonDecode(response.body);
 
             Get.snackbar(
               responseBody['message'],
               'Register this card before use',
               snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.yellowAccent,
+              backgroundColor: Colors.deepOrange,
               colorText: Colors.white,
             );
           }

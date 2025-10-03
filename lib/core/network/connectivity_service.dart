@@ -23,7 +23,7 @@ class ConnectivityService {
           'Welcome Back!!!',
           'your back online.',
           colorText: Colors.white,
-          backgroundColor: Colors.yellowAccent,
+          backgroundColor: Colors.deepOrange,
           snackPosition: SnackPosition.BOTTOM,
         );
         await _syncQueuedRequests();
@@ -33,7 +33,7 @@ class ConnectivityService {
           'Oops!!!',
           'your onffine.',
           colorText: Colors.white,
-          backgroundColor: Colors.yellowAccent,
+          backgroundColor: Colors.deepOrange,
           snackPosition: SnackPosition.BOTTOM,
         );
       }
@@ -41,16 +41,18 @@ class ConnectivityService {
   }
 
   Future<void> _syncQueuedRequests() async {
+    Get.snackbar('Sync', 'checking for syncs');
     final networkInfo = NetworkInfo();
     if (await networkInfo.isConnected()) {
       final requests = await OfflineQueueDB().getAllRequests();
+      Get.snackbar('Sync Data', requests.toString());
       for (final req in requests) {
         try {
           Get.snackbar(
             'Sync',
             'Starting sync.',
             colorText: Colors.white,
-            backgroundColor: Colors.yellowAccent,
+            backgroundColor: Colors.deepOrange,
             snackPosition: SnackPosition.BOTTOM,
           );
           // Replace with your actual API service
