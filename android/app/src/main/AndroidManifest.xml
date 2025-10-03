@@ -4,7 +4,7 @@
     <uses-feature android:name="android.hardware.usb.host" />
     <uses-permission android:name="android.permission.USB_PERMISSION" />
     <application
-        android:label="schoolruns"
+        android:label="@string/appName"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

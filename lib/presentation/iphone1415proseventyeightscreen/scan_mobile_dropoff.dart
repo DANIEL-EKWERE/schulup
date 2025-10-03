@@ -456,6 +456,12 @@ class _RFIDReaderDropOffScreenState extends State<RFIDReaderDropOffScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // ElevatedButton(
+              //   onPressed: () {
+              //     controller.dropOff('123456784');
+              //   },
+              //   child: Text('Scan Card'),
+              // ),
               // Hidden text field to capture RFID input
               Opacity(
                 opacity: 0.0,

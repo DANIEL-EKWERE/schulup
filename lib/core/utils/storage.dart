@@ -324,6 +324,13 @@ class DataBase extends GetxController {
     return true;
   }
 
+  saveLogo(String image) async {
+    SharedPreferences sharedPreferences = await _pref;
+    await sharedPreferences.setString('logo', image);
+
+    return true;
+  }
+
   savePhoneNumber(String phone) async {
     SharedPreferences sharedPreferences = await _pref;
     await sharedPreferences.setString('phone', phone);
@@ -354,7 +361,7 @@ class DataBase extends GetxController {
 
   saveFullName(String full_name) async {
     SharedPreferences sharedPreferences = await _pref;
-    await sharedPreferences.setString('full_name', last_name);
+    await sharedPreferences.setString('full_name', full_name);
 
     return true;
   }
@@ -456,7 +463,7 @@ class DataBase extends GetxController {
       String full_name = sharedPreferences.getString('full_name')!;
       return full_name;
     } else {
-      return ''; // Return an empty string if no profile photo is saved
+      return 'N/A'; // Return 'N/A' if no full name is saved
     }
   }
 
@@ -475,6 +482,17 @@ class DataBase extends GetxController {
       return coverPhotoPath;
     } else {
       return ''; // Return an empty string if no cover photo is saved
+    }
+  }
+
+  // Get logo
+  Future<String> getLogo() async {
+    SharedPreferences sharedPreferences = await _pref;
+    if (sharedPreferences.containsKey('logo')) {
+      String logoPath = sharedPreferences.getString('logo')!;
+      return logoPath;
+    } else {
+      return ''; // Return an empty string if no logo is saved
     }
   }
 

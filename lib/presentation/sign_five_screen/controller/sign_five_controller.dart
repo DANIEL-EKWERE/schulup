@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as myLog;
 import 'package:flutter/material.dart';
@@ -63,7 +64,11 @@ class SignFiveController extends GetxController {
         print(response.body);
         //} else {
         OverlayLoadingProgress.stop();
-        Get.snackbar("Error", "Unable to retrieve logo");
+        var responseBody = jsonDecode(response.body);
+        var logoUrl = responseBody['logoUrl'];
+        logo.value = logoUrl;
+        print(logo.value);
+        myLog.log(logo.value);
       }
     } catch (e) {
       OverlayLoadingProgress.stop();
@@ -117,6 +122,28 @@ class SignFiveController extends GetxController {
         // var schoolName = responseBody['data'];
         // name.value = schoolName;
         // print(name.value);
+        var responseBody = jsonDecode(response.body);
+        print(responseBody);
+
+        Get.toNamed(AppRoutes.accountCreationScreen);
+        // !.then((value) {
+          Timer(const Duration(seconds: 4), () {
+           Get.snackbar(
+          'Success',
+          responseBody['message'],
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+          });
+        // });
+        // Get.snackbar(
+        //   'Success',
+        //   responseBody['message'],
+        //   snackPosition: SnackPosition.BOTTOM,
+        //   backgroundColor: Colors.green,
+        //   colorText: Colors.white,
+        // );
       } else {
         //   OverlayLoadingProgress.stop();
         Get.snackbar("Error", "Unable to retrieve register card");

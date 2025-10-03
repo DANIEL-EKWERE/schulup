@@ -463,6 +463,12 @@ class _RegisterCardState extends State<RegisterCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // ElevatedButton(
+              //   onPressed: () {
+              //     controller.registerCard("123456784");
+              //   },
+              //   child: Text('Register Card'),
+              // ),
               // Hidden text field to capture RFID input
               Opacity(
                 opacity: 0.0,

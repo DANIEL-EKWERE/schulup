@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:overlay_kit/overlay_kit.dart';
@@ -138,7 +139,17 @@ StreamSubscription? _connectivitySubscription;
               backgroundColor: Colors.green,
               colorText: Colors.white,
             );
-            Get.toNamed(AppRoutes.accountCreationScreen);
+            
+          }else if (response.statusCode == 404) {
+            var responseBody = jsonDecode(response.body);
+
+            Get.snackbar(
+              responseBody['message'],
+              'Register this card before use',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.yellowAccent,
+              colorText: Colors.white,
+            );
           }
         } catch (e) {
           Get.snackbar(
@@ -198,7 +209,17 @@ StreamSubscription? _connectivitySubscription;
               backgroundColor: Colors.green,
               colorText: Colors.white,
             );
-            Get.toNamed(AppRoutes.accountCreationScreen);
+            
+          }else if (response.statusCode == 404) {
+            var responseBody = jsonDecode(response.body);
+
+            Get.snackbar(
+              responseBody['message'],
+              'Register this card before use',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.yellowAccent,
+              colorText: Colors.white,
+            );
           }
         } catch (e) {
           Get.snackbar(

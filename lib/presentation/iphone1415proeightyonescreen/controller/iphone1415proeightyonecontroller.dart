@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:overlay_kit/overlay_kit.dart';
@@ -19,8 +20,7 @@ class Iphone1415ProEightyoneController extends GetxController {
 
   ApiClient _apiService = ApiClient(Duration(seconds: 60 * 5));
 
-
-StreamSubscription? _connectivitySubscription;
+  StreamSubscription? _connectivitySubscription;
 
   @override
   void onInit() {
@@ -85,33 +85,63 @@ StreamSubscription? _connectivitySubscription;
   //   }
   // }
 
-
   Future<void> checkIn(String cardId) async {
-  OverlayLoadingProgress.start(context: Get.context!);
-  var schoolCode = await dataBase.getBrmCode();
-  final body = {
-    "schoolCode": schoolCode,
-    "cardUID": cardId,
-    "eventType": 3,
-    "eventDateTime": DateTime.now().toIso8601String(),
-    "notes": "",
-  };
+    OverlayLoadingProgress.start(context: Get.context!);
+    var schoolCode = await dataBase.getBrmCode();
+    final body = {
+      "schoolCode": schoolCode,
+      "cardUID": cardId,
+      "eventType": 3,
+      "eventDateTime": DateTime.now().toIso8601String(),
+      "notes": "",
+    };
 
-try{
-  final networkInfo = NetworkInfo();
-  if (await networkInfo.isConnected()) {
     try {
-      final response = await _apiService.attendance(body);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        myLog.log(response.body);
+      final networkInfo = NetworkInfo();
+      if (await networkInfo.isConnected()) {
+        try {
+          final response = await _apiService.attendance(body);
+          if (response.statusCode == 200 || response.statusCode == 201) {
+            myLog.log(response.body);
+            Get.snackbar(
+              'success',
+              'Check-In successful',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green,
+              colorText: Colors.white,
+            );
+          } else if (response.statusCode == 404) {
+            var responseBody = jsonDecode(response.body);
+
+            Get.snackbar(
+              responseBody['message'],
+              'Register this card before use',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.yellowAccent,
+              colorText: Colors.white,
+            );
+          }
+        } catch (e) {
+          Get.snackbar(
+            'Error',
+            e.toString(),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        } finally {
+          OverlayLoadingProgress.stop();
+        }
+      } else {
+        await OfflineQueueDB().addRequest(body);
         Get.snackbar(
-          'success',
-          'Check-In successful',
+          'Offline',
+          'Request saved. Will sync when online.',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
+          backgroundColor: Colors.orange,
+          colorText: const Color.fromARGB(255, 167, 46, 46),
         );
-        Get.toNamed(AppRoutes.accountCreationScreen);
+        OverlayLoadingProgress.stop();
       }
     } catch (e) {
       Get.snackbar(
@@ -121,44 +151,22 @@ try{
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-    } finally {
       OverlayLoadingProgress.stop();
     }
-  } else {
-    await OfflineQueueDB().addRequest(body);
-    Get.snackbar(
-      'Offline',
-      'Request saved. Will sync when online.',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.orange,
-      colorText: Colors.white,
-    );
-    OverlayLoadingProgress.stop();
   }
-  }catch(e){
-  Get.snackbar(
-    'Error',
-    e.toString(),
-    snackPosition: SnackPosition.BOTTOM,
-    backgroundColor: Colors.red,
-    colorText: Colors.white,
-  );
-  OverlayLoadingProgress.stop();
-  }
-}
 
-// void syncQueuedRequests() async {
-//   final networkInfo = NetworkInfo();
-//   if (await networkInfo.isConnected()) {
-//     final requests = await OfflineQueueDB().getAllRequests();
-//     for (final req in requests) {
-//       try {
-//         await _apiService.attendance(req);
-//       } catch (_) {}
-//     }
-//     await OfflineQueueDB().clearQueue();
-//   }
-// }
+  // void syncQueuedRequests() async {
+  //   final networkInfo = NetworkInfo();
+  //   if (await networkInfo.isConnected()) {
+  //     final requests = await OfflineQueueDB().getAllRequests();
+  //     for (final req in requests) {
+  //       try {
+  //         await _apiService.attendance(req);
+  //       } catch (_) {}
+  //     }
+  //     await OfflineQueueDB().clearQueue();
+  //   }
+  // }
 
   // Future<void> checkOut() async {
   //   OverlayLoadingProgress.start(context: Get.context!);
@@ -193,30 +201,61 @@ try{
   // }
 
   Future<void> checkOut(String cardId) async {
-  OverlayLoadingProgress.start(context: Get.context!);
-  var schoolCode = await dataBase.getBrmCode();
-  final body = {
-    "schoolCode": schoolCode,
-    "cardUID": cardId,
-    "eventType": 4,
-    "eventDateTime": DateTime.now().toIso8601String(),
-    "notes": "",
-  };
-try{
-  final networkInfo = NetworkInfo();
-  if (await networkInfo.isConnected()) {
+    OverlayLoadingProgress.start(context: Get.context!);
+    var schoolCode = await dataBase.getBrmCode();
+    final body = {
+      "schoolCode": schoolCode,
+      "cardUID": cardId,
+      "eventType": 4,
+      "eventDateTime": DateTime.now().toIso8601String(),
+      "notes": "",
+    };
     try {
-      final response = await _apiService.attendance(body);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        myLog.log(response.body);
+      final networkInfo = NetworkInfo();
+      if (await networkInfo.isConnected()) {
+        try {
+          final response = await _apiService.attendance(body);
+          if (response.statusCode == 200 || response.statusCode == 201) {
+            myLog.log(response.body);
+            Get.snackbar(
+              'success',
+              'Check-out successful',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green,
+              colorText: Colors.white,
+            );
+          } else if (response.statusCode == 404) {
+            var responseBody = jsonDecode(response.body);
+
+            Get.snackbar(
+              responseBody['message'],
+              'Register this card before use',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.yellowAccent,
+              colorText: Colors.white,
+            );
+          }
+        } catch (e) {
+          Get.snackbar(
+            'Error',
+            e.toString(),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        } finally {
+          OverlayLoadingProgress.stop();
+        }
+      } else {
+        await OfflineQueueDB().addRequest(body);
         Get.snackbar(
-          'success',
-          'Check-out successful',
+          'Offline',
+          'Request saved. Will sync when online.',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.orange,
           colorText: Colors.white,
         );
-        Get.toNamed(AppRoutes.accountCreationScreen);
+        OverlayLoadingProgress.stop();
       }
     } catch (e) {
       Get.snackbar(
@@ -226,29 +265,7 @@ try{
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-    } finally {
       OverlayLoadingProgress.stop();
     }
-  } else {
-    await OfflineQueueDB().addRequest(body);
-    Get.snackbar(
-      'Offline',
-      'Request saved. Will sync when online.',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.orange,
-      colorText: Colors.white,
-    );
-    OverlayLoadingProgress.stop();
   }
-  }catch(e){
-  Get.snackbar(
-    'Error',
-    e.toString(),
-    snackPosition: SnackPosition.BOTTOM,
-    backgroundColor: Colors.red,
-    colorText: Colors.white,
-  );
-  OverlayLoadingProgress.stop();
-  }
-}
 }

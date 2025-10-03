@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../../core/app_export.dart';
 import '../models/account_creation_model.dart';
@@ -8,4 +10,12 @@ import '../models/account_creation_model.dart';
 /// current accountCreationModelObj
 class AccountCreationController extends GetxController {
   Rx<AccountCreationModel> accountCreationModelObj = AccountCreationModel().obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    Timer(const Duration(seconds: 3), () {
+      Get.back();
+    });
+  }
 }

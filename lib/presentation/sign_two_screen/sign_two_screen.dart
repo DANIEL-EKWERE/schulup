@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schoolruns/core/utils/storage.dart';
 import '../../core/app_export.dart';
 import '../../core/utils/validation_functions.dart';
 import '../../theme/custom_button_style.dart';
@@ -18,6 +19,26 @@ class SignTwoScreen extends StatefulWidget {
 
 class _SignTwoScreenState extends State<SignTwoScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    setValues();
+  }
+
+  String schoolLogo = '';
+  String schoolName = '';
+
+  setValues() async {
+    String schoolLogo = await dataBase.getLogo();
+    String schoolName = await dataBase.getFullName();
+    setState(() {
+      this.schoolLogo = schoolLogo;
+      this.schoolName = schoolName;
+    });
+    print(schoolLogo);
+    print(schoolName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,16 +82,21 @@ class _SignTwoScreenState extends State<SignTwoScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CustomImageView(
-                          imagePath: ImageConstant.imgFloatingIcon,
+                          imagePath:
+                              schoolLogo.isEmpty
+                                  ? ImageConstant.imgFloatingIcon
+                                  : schoolLogo,
                           height: 42.h,
                           width: 42.h,
                         ),
+                        SizedBox(width: 8.h),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 6.h),
                             child: Text(
-                              "msg_redemption_academy".tr,
+                              // "msg_redemption_academy".tr,
+                              schoolName,
                               style:
                                   CustomTextStyles.bodyMediumPrimaryContainer,
                             ),

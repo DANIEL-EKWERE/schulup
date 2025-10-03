@@ -33,7 +33,6 @@ class Iphone1415ProFiftythreeController extends GetxController {
     iphone1415ProFiftythreeModelObj.value.dropdownItemList.refresh();
   }
 
-
   Rx<bool> isSelectedSwitch1 = false.obs;
   RxString logo = ''.obs;
   RxString name = 'Loading....'.obs;
@@ -78,9 +77,19 @@ class Iphone1415ProFiftythreeController extends GetxController {
         //     OverlayLoadingProgress.stop();
         // Handle successful logo retrieval
         print(response.body);
+        var responseBody = jsonDecode(response.body);
+        var logoUrl = responseBody['logoUrl'];
+        logo.value = logoUrl;
+        print(logo.value);
+        myLog.log(logo.value);
         //} else {
+        await dataBase.saveLogo(logoUrl);
+
         OverlayLoadingProgress.stop();
-        Get.snackbar("Error", "Unable to retrieve logo");
+        // Get.snackbar("Error", "retrieve logo Successfully",
+        //     snackPosition: SnackPosition.BOTTOM,
+        //     backgroundColor: Colors.green,
+        //     colorText: Colors.white);
       }
     } catch (e) {
       OverlayLoadingProgress.stop();
@@ -102,6 +111,10 @@ class Iphone1415ProFiftythreeController extends GetxController {
         var responseBody = jsonDecode(response.body);
         var schoolName = responseBody['data'];
         name.value = schoolName;
+        dynamic result = await dataBase.saveFullName(schoolName);
+        myLog.log(result.toString());
+        var name1 = await dataBase.getFullName();
+        myLog.log(name1);
         print(name.value);
       } else {
         //   OverlayLoadingProgress.stop();
