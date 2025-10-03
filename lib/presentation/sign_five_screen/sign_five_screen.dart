@@ -165,7 +165,9 @@ class SignFiveScreen extends GetWidget<SignFiveController> {
                   alignment: Alignment.center,
                   child: Text(
                     "msg_email_notification".tr,
-                    style: theme.textTheme.bodyMedium,
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 Obx(
@@ -189,7 +191,9 @@ class SignFiveScreen extends GetWidget<SignFiveController> {
                   alignment: Alignment.center,
                   child: Text(
                     "msg_sms_notification".tr,
-                    style: theme.textTheme.bodyMedium,
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 Obx(
@@ -267,7 +271,7 @@ class SignFiveScreen extends GetWidget<SignFiveController> {
           child: Text(
             contactsupport,
             style: theme.textTheme.bodyMedium!.copyWith(
-              color: theme.colorScheme.secondaryContainer,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

@@ -38,7 +38,7 @@ class CustomTextStyles {
   static TextStyle get bodyMediumPrimary =>
       theme.textTheme.bodyMedium!.copyWith(
         color: theme.colorScheme.primary.withValues(alpha: 0.5),
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w500,
       );
   static TextStyle get bodyMediumPrimaryContainer =>
       theme.textTheme.bodyMedium!.copyWith(
