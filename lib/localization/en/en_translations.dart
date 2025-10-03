@@ -45,7 +45,7 @@ final Map<String, String> en = {
   "msg_jonathan_okuneva": "Jonathan Okuneva",
   "msg_language_preferences": "Language Preferences",
   "msg_lorem_ipsum_dolor":
-      "Lorem ipsum dolor sit amet consectetur. Fames diam lobortis et tellus. Viverra in ut integer iaculis lectus. Id id dignissim mattis eget at. Velit in at quam morbi libero eget ",
+      "Welcome to Schulup Attendance Every drop-off, pickup, check-in and checkout matters.\nInstant email alerts keep parents and guardians informed, ensuring every student's safety and peace of mind.",
   "msg_lorem_ipsum_dolor2": "Lorem ipsum dolor",
   "msg_lorem_ipsum_dolor3": "Lorem ipsum dolor sit amet",
   "msg_notification_settings": "Notification Settings",

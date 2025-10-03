@@ -23,7 +23,7 @@ class ConnectivityService {
           'Welcome Back!!!',
           'your back online.',
           colorText: Colors.white,
-          backgroundColor: Colors.deepOrange,
+          backgroundColor: Colors.yellow,
           snackPosition: SnackPosition.BOTTOM,
         );
         await _syncQueuedRequests();
@@ -31,9 +31,9 @@ class ConnectivityService {
       } else {
         Get.snackbar(
           'Oops!!!',
-          'your onffine.',
+          'your offline.',
           colorText: Colors.white,
-          backgroundColor: Colors.deepOrange,
+          backgroundColor: Colors.yellow,
           snackPosition: SnackPosition.BOTTOM,
         );
       }
@@ -45,7 +45,7 @@ class ConnectivityService {
     final networkInfo = NetworkInfo();
     if (await networkInfo.isConnected()) {
       final requests = await OfflineQueueDB().getAllRequests();
-      Get.snackbar('Sync Data', requests.toString());
+    requests.isEmpty ?  Get.snackbar('Up To date', 'nothing to sync.') : Get.snackbar('Sync Data', requests.toString());
       for (final req in requests) {
         try {
           Get.snackbar(

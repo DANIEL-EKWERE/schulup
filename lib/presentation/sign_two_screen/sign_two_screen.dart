@@ -56,16 +56,14 @@ class _SignTwoScreenState extends State<SignTwoScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  Text("Welcome Back!!!", style: theme.textTheme.headlineSmall),
                   Text(
-                    "msg_lorem_ipsum_dolor2".tr,
-                    style: theme.textTheme.headlineSmall,
-                  ),
-                  Text(
-                    "msg_lorem_ipsum_dolor3".tr,
-                    maxLines: null,
+                    "Reliable attendance, strengthened security, greater peace of mind.",
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: CustomTextStyles.bodyMediumLight.copyWith(
-                      height: 2.80,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   SizedBox(height: 40.h),

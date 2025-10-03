@@ -22,7 +22,7 @@ class SignUpWelcomeScreen extends GetWidget<SignUpWelcomeController> {
             children: [
               Spacer(),
               Text(
-                "lbl_lorem_ipsum".tr,
+                "Schulup",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.headlineLarge!.copyWith(height: 1.31),
@@ -30,7 +30,7 @@ class SignUpWelcomeScreen extends GetWidget<SignUpWelcomeController> {
               SizedBox(height: 4.h),
               Text(
                 "msg_lorem_ipsum_dolor".tr,
-                maxLines: 4,
+                maxLines: 5,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodyLarge!.copyWith(
                   height: 1.63,
@@ -50,7 +50,7 @@ class SignUpWelcomeScreen extends GetWidget<SignUpWelcomeController> {
                 },
                 height: 40.h,
                 width: 112.h,
-                text: "lbl_get_started".tr,
+                text: "Continue",
                 buttonTextStyle: CustomTextStyles.bodyLargeInterGray100,
               ),
             ],

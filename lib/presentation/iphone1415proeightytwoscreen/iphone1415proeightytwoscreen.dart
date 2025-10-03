@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:schoolruns/widgets/app_bar/custom_appbar.dart';
 import '../../core/app_export.dart';
 import '../../data/models/selectionPopupModel/selection_popup_model.dart';
@@ -43,20 +43,21 @@ class Iphone1415ProEightytwoScreen
     return SizedBox(
       height: 784.h,
       width: 392.h,
-      child: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37.43296265331129, -122.08832357078792),
-          zoom: 14.4746,
-        ),
-        onMapCreated: (GoogleMapController controller) {
-          this.controller.googleMapController.complete(controller);
-        },
-        zoomControlsEnabled: false,
-        zoomGesturesEnabled: false,
-        myLocationButtonEnabled: false,
-        myLocationEnabled: false,
-      ),
+      child: Container(),
+      // GoogleMap(
+      //   mapType: MapType.normal,
+      //   initialCameraPosition: CameraPosition(
+      //     target: LatLng(37.43296265331129, -122.08832357078792),
+      //     zoom: 14.4746,
+      //   ),
+      //   onMapCreated: (GoogleMapController controller) {
+      //     this.controller.googleMapController.complete(controller);
+      //   },
+      //   zoomControlsEnabled: false,
+      //   zoomGesturesEnabled: false,
+      //   myLocationButtonEnabled: false,
+      //   myLocationEnabled: false,
+      // ),
     );
   }
 

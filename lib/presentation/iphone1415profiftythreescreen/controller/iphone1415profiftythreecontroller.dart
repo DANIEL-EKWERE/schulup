@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:overlay_kit/overlay_kit.dart';
 import 'package:schoolruns/core/utils/storage.dart';
 import 'package:schoolruns/data/apiClient/api_client.dart';
@@ -18,7 +18,7 @@ class Iphone1415ProFiftythreeController extends GetxController {
   Rx<Iphone1415ProFiftythreeModel> iphone1415ProFiftythreeModelObj =
       Iphone1415ProFiftythreeModel().obs;
 
-  Completer<GoogleMapController> googleMapController = Completer();
+  //Completer<GoogleMapController> googleMapController = Completer();
 
   SelectionPopupModel? selectedDropDownValue;
 
